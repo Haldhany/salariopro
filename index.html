@@ -1,0 +1,2953 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SalárioPro</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --bg:#07111f;
+    --card:#101c2d;
+    --card2:#16243a;
+    --input:#091423;
+    --text:#fff;
+    --muted:#94a3b8;
+    --blue:#3b82f6;
+    --purple:#7c3aed;
+    --green:#10b981;
+    --red:#ef4444;
+    --yellow:#f59e0b;
+    --border:rgba(255,255,255,.08);
+    --shadow:rgba(0,0,0,.35);
+}
+
+body.light{
+    --bg:#eef3f9;
+    --card:#fff;
+    --card2:#f3f6fa;
+    --input:#edf2f7;
+    --text:#101827;
+    --muted:#64748b;
+    --blue:#2563eb;
+    --purple:#7c3aed;
+    --green:#059669;
+    --red:#dc2626;
+    --yellow:#d97706;
+    --border:rgba(0,0,0,.08);
+    --shadow:rgba(15,23,42,.15);
+}
+
+body{
+    min-height:100vh;
+    padding:20px;
+
+    font-family:Arial,Helvetica,sans-serif;
+
+    color:var(--text);
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(59,130,246,.20),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 90%,
+            rgba(16,185,129,.12),
+            transparent 30%
+        ),
+        var(--bg);
+
+    transition:.3s;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+}
+
+.header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:20px;
+}
+
+.logo-area{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo{
+    width:52px;
+    height:52px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--purple)
+        );
+
+    font-size:25px;
+
+    box-shadow:
+        0 10px 30px rgba(59,130,246,.3);
+}
+
+.logo-area h1{
+    font-size:22px;
+}
+
+.logo-area p{
+    margin-top:4px;
+
+    color:var(--muted);
+
+    font-size:12px;
+}
+
+.theme{
+    width:44px;
+    height:44px;
+
+    border:0;
+    border-radius:50%;
+
+    background:var(--card);
+    color:var(--text);
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    box-shadow:
+        0 5px 20px var(--shadow);
+}
+
+.grid{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:18px;
+}
+
+.card{
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:24px;
+
+    padding:22px;
+
+    box-shadow:
+        0 20px 50px var(--shadow);
+}
+
+.card-title{
+    margin-bottom:18px;
+}
+
+.card-title h2{
+    font-size:17px;
+}
+
+.card-title p{
+    margin-top:5px;
+
+    color:var(--muted);
+
+    font-size:11px;
+}
+
+.section-title{
+    margin:18px 0 12px;
+
+    color:#60a5fa;
+
+    font-size:12px;
+    font-weight:bold;
+}
+
+.field{
+    margin-bottom:13px;
+}
+
+.field label{
+    display:block;
+
+    margin-bottom:7px;
+
+    color:var(--muted);
+
+    font-size:12px;
+}
+
+.input-wrapper{
+    position:relative;
+}
+
+.input-wrapper span{
+    position:absolute;
+
+    left:13px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:var(--muted);
+
+    font-size:13px;
+}
+
+input,
+select{
+    width:100%;
+    height:46px;
+
+    padding:0 13px 0 40px;
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    outline:none;
+
+    background:var(--input);
+
+    color:var(--text);
+
+    font-size:13px;
+}
+
+select{
+    padding-left:13px;
+}
+
+input:focus,
+select:focus{
+    border-color:var(--blue);
+
+    box-shadow:
+        0 0 0 3px rgba(59,130,246,.12);
+}
+
+.two{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:10px;
+}
+
+.calculate{
+    width:100%;
+    height:52px;
+
+    margin-top:8px;
+
+    border:0;
+
+    border-radius:15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--purple)
+        );
+
+    color:white;
+
+    font-size:13px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.calculate:hover{
+    transform:translateY(-2px);
+}
+
+.result-main{
+    padding:22px;
+
+    margin-bottom:15px;
+
+    border-radius:19px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(16,185,129,.16),
+            rgba(59,130,246,.12)
+        );
+
+    border:1px solid var(--border);
+}
+
+.result-main span{
+    color:var(--muted);
+
+    font-size:10px;
+}
+
+.result-main h3{
+    margin-top:7px;
+
+    color:#34d399;
+
+    font-size:34px;
+}
+
+.breakdown{
+    display:flex;
+    flex-direction:column;
+
+    gap:8px;
+}
+
+.row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:11px 12px;
+
+    border-radius:11px;
+
+    background:var(--card2);
+
+    font-size:12px;
+}
+
+.row span{
+    color:var(--muted);
+}
+
+.positive{
+    color:#34d399;
+}
+
+.negative{
+    color:#fb7185;
+}
+
+.total{
+    margin-top:3px;
+
+    border:1px solid rgba(16,185,129,.2);
+
+    background:rgba(16,185,129,.08);
+
+    font-weight:bold;
+}
+
+.actions{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:9px;
+
+    margin-top:15px;
+}
+
+.action{
+    height:42px;
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    background:var(--card2);
+
+    color:var(--text);
+
+    cursor:pointer;
+
+    font-size:11px;
+}
+
+.action:hover{
+    background:var(--input);
+}
+
+.full{
+    grid-column:1 / -1;
+}
+
+.benefit-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:12px;
+}
+
+.benefit{
+    padding:17px;
+
+    border-radius:16px;
+
+    background:var(--card2);
+
+    border:1px solid var(--border);
+}
+
+.benefit-icon{
+    font-size:23px;
+}
+
+.benefit h3{
+    margin-top:10px;
+
+    font-size:13px;
+}
+
+.benefit p{
+    margin-top:6px;
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    line-height:1.5;
+}
+
+.benefit strong{
+    display:block;
+
+    margin-top:10px;
+
+    color:#34d399;
+
+    font-size:18px;
+}
+
+.history{
+    margin-top:15px;
+}
+
+.history-item{
+    display:flex;
+
+    justify-content:space-between;
+    align-items:center;
+
+    gap:10px;
+
+    padding:12px;
+
+    margin-bottom:8px;
+
+    border-radius:12px;
+
+    background:var(--card2);
+
+    font-size:11px;
+}
+
+.history-item small{
+    color:var(--muted);
+}
+
+.delete-history{
+    border:0;
+
+    background:transparent;
+
+    color:#fb7185;
+
+    cursor:pointer;
+
+    font-size:16px;
+}
+
+.empty{
+    padding:20px;
+
+    text-align:center;
+
+    color:var(--muted);
+
+    font-size:11px;
+}
+
+.info{
+    margin-top:15px;
+
+    padding:13px;
+
+    border-radius:13px;
+
+    background:var(--card2);
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    line-height:1.5;
+}
+
+.footer{
+    margin-top:18px;
+
+    text-align:center;
+
+    color:var(--muted);
+
+    font-size:10px;
+}
+
+@media(max-width:700px){
+
+    body{
+        padding:12px;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+
+    .benefit-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:400px){
+
+    .card{
+        padding:17px;
+    }
+
+    .two{
+        grid-template-columns:1fr;
+    }
+
+    .actions{
+        grid-template-columns:1fr;
+    }
+
+    .result-main h3{
+        font-size:28px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+<header class="header">
+
+    <div class="logo-area">
+
+        <div class="logo">
+            💰
+        </div>
+
+        <div>
+
+            <h1>SalárioPro</h1>
+
+            <p>
+                Calculadora salarial profissional
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="theme"
+        id="themeButton"
+    >
+        ☀️
+    </button>
+
+</header>
+
+
+<div class="grid">
+
+
+<!-- =================================
+     DADOS DO SALÁRIO
+================================= -->
+
+<section class="card">
+
+    <div class="card-title">
+
+        <h2>
+            Dados do trabalhador
+        </h2>
+
+        <p>
+            Preencha os dados para calcular.
+        </p>
+
+    </div>
+
+
+    <div class="section-title">
+        💵 SALÁRIO
+    </div>
+
+
+    <div class="field">
+
+        <label>
+            Salário bruto
+        </label>
+
+        <div class="input-wrapper">
+
+            <span>R$</span>
+
+            <input
+                id="salario"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="Ex.: 4000"
+            >
+
+        </div>
+
+    </div>
+
+
+    <div class="two">
+
+        <div class="field">
+
+            <label>
+                Jornada mensal
+            </label>
+
+            <div class="input-wrapper">
+
+                <span>⏱</span>
+
+                <input
+                    id="jornada"
+                    type="number"
+                    value="220"
+                    min="1"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Dependentes
+            </label>
+
+            <div class="input-wrapper">
+
+                <span>👤</span>
+
+                <input
+                    id="dependentes"
+                    type="number"
+                    value="0"
+                    min="0"
+                >
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section-title">
+        ⏰ HORAS EXTRAS
+    </div>
+
+
+    <div class="two">
+
+        <div class="field">
+
+            <label>
+                Horas extras
+            </label>
+
+            <div class="input-wrapper">
+
+                <span>+</span>
+
+                <input
+                    id="horasExtras"
+                    type="number"
+                    value="0"
+                    min="0"
+                    step="0.01"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Adicional
+            </label>
+
+            <div class="input-wrapper">
+
+                <span>%</span>
+
+                <input
+                    id="percentualExtra"
+                    type="number"
+                    value="50"
+                    min="0"
+                >
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section-title">
+        🌙 TRABALHO NOTURNO
+    </div>
+
+
+    <div class="two">
+
+        <div class="field">
+
+            <label>
+                Horas noturnas
+            </label>
+
+            <div class="input-wrapper">
+
+                <span>🌙</span>
+
+                <input
+                    id="horasNoturnas"
+                    type="number"
+                    value="0"
+                    min="0"
+                    step="0.01"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Adicional
+            </label>
+
+            <div class="input-wrapper">
+
+                <span>%</span>
+
+                <input
+                    id="percentualNoturno"
+                    type="number"
+                    value="20"
+                    min="0"
+                >
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section-title">
+        🦺 INSALUBRIDADE
+    </div>
+
+
+    <div class="field">
+
+        <label>
+            Grau
+        </label>
+
+        <select id="insalubridade">
+
+            <option value="0">
+                Sem insalubridade
+            </option>
+
+            <option value="10">
+                Grau mínimo — 10%
+            </option>
+
+            <option value="20">
+                Grau médio — 20%
+            </option>
+
+            <option value="40">
+                Grau máximo — 40%
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="field">
+
+        <label>
+            Base da insalubridade
+        </label>
+
+        <div class="input-wrapper">
+
+            <span>R$</span>
+
+            <input
+                id="baseInsalubridade"
+                type="number"
+                value="1621"
+                min="0"
+                step="0.01"
+            >
+
+        </div>
+
+    </div>
+
+
+    <div class="field">
+
+        <label>
+            Outros descontos
+        </label>
+
+        <div class="input-wrapper">
+
+            <span>R$</span>
+
+            <input
+                id="outros"
+                type="number"
+                value="0"
+                min="0"
+                step="0.01"
+            >
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="calculate"
+        onclick="calcularSalario()"
+    >
+        CALCULAR SALÁRIO
+    </button>
+
+</section>
+
+
+<!-- =================================
+     RESULTADO
+================================= -->
+
+<section class="card">
+
+    <div class="card-title">
+
+        <h2>
+            Resultado mensal
+        </h2>
+
+        <p>
+            Estimativa da remuneração.
+        </p>
+
+    </div>
+
+
+    <div class="result-main">
+
+        <span>
+            SALÁRIO LÍQUIDO ESTIMADO
+        </span>
+
+        <h3 id="liquido">
+            R$ 0,00
+        </h3>
+
+    </div>
+
+
+    <div class="breakdown">
+
+        <div class="row">
+
+            <span>Salário bruto</span>
+
+            <strong id="resBruto">
+                R$ 0,00
+            </strong>
+
+        </div>
+
+
+        <div class="row">
+
+            <span>Horas extras</span>
+
+            <strong
+                id="resExtras"
+                class="positive"
+            >
+                + R$ 0,00
+            </strong>
+
+        </div>
+
+
+        <div class="row">
+
+            <span>Adicional noturno</span>
+
+            <strong
+                id="resNoturno"
+                class="positive"
+            >
+                + R$ 0,00
+            </strong>
+
+        </div>
+
+
+        <div class="row">
+
+            <span>Insalubridade</span>
+
+            <strong
+                id="resInsalubridade"
+                class="positive"
+            >
+                + R$ 0,00
+            </strong>
+
+        </div>
+
+
+        <div class="row">
+
+            <span>Remuneração bruta</span>
+
+            <strong id="resRemuneracao">
+                R$ 0,00
+            </strong>
+
+        </div>
+
+
+        <div class="row">
+
+            <span>INSS</span>
+
+            <strong
+                id="resINSS"
+                class="negative"
+            >
+                - R$ 0,00
+            </strong>
+
+        </div>
+
+
+        <div class="row">
+
+            <span>IRRF</span>
+
+            <strong
+                id="resIRRF"
+                class="negative"
+            >
+                - R$ 0,00
+            </strong>
+
+        </div>
+
+
+        <div class="row">
+
+            <span>Outros descontos</span>
+
+            <strong
+                id="resOutros"
+                class="negative"
+            >
+                - R$ 0,00
+            </strong>
+
+        </div>
+
+
+        <div class="row total">
+
+            <span>
+                Total de descontos
+            </span>
+
+            <strong id="resDescontos">
+                R$ 0,00
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <div class="actions">
+
+        <button
+            class="action"
+            onclick="copiarResultado()"
+        >
+            📋 Copiar resultado
+        </button>
+
+
+        <button
+            class="action"
+            onclick="novoCalculo()"
+        >
+            🔄 Novo cálculo
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =================================
+     BENEFÍCIOS
+================================= -->
+
+<section class="card full">
+
+    <div class="card-title">
+
+        <h2>
+            Benefícios e verbas anuais
+        </h2>
+
+        <p>
+            Estes valores são mostrados separadamente
+            e não são somados ao salário líquido mensal.
+        </p>
+
+    </div>
+
+
+    <div class="two">
+
+        <div class="field">
+
+            <label>
+                Meses trabalhados no ano
+            </label>
+
+            <div class="input-wrapper">
+
+                <span>📅</span>
+
+                <input
+                    id="mesesTrabalhados"
+                    type="number"
+                    value="12"
+                    min="1"
+                    max="12"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Meses para férias proporcionais
+            </label>
+
+            <div class="input-wrapper">
+
+                <span>🏖️</span>
+
+                <input
+                    id="mesesFerias"
+                    type="number"
+                    value="12"
+                    min="1"
+                    max="12"
+                >
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="calculate"
+        onclick="calcularBeneficios()"
+    >
+        CALCULAR BENEFÍCIOS
+    </button>
+
+
+    <br><br>
+
+
+    <div class="benefit-grid">
+
+
+        <div class="benefit">
+
+            <div class="benefit-icon">
+                🎁
+            </div>
+
+            <h3>
+                13º salário
+            </h3>
+
+            <p>
+                Estimativa proporcional aos
+                meses informados.
+            </p>
+
+            <strong id="decimo">
+                R$ 0,00
+            </strong>
+
+        </div>
+
+
+        <div class="benefit">
+
+            <div class="benefit-icon">
+                🏖️
+            </div>
+
+            <h3>
+                Férias + 1/3
+            </h3>
+
+            <p>
+                Estimativa das férias
+                proporcionais.
+            </p>
+
+            <strong id="ferias">
+                R$ 0,00
+            </strong>
+
+        </div>
+
+
+        <div class="benefit">
+
+            <div class="benefit-icon">
+                🏦
+            </div>
+
+            <h3>
+                FGTS mensal
+            </h3>
+
+            <p>
+                Estimativa do depósito
+                de 8% do empregador.
+            </p>
+
+            <strong id="fgts">
+                R$ 0,00
+            </strong>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="info">
+
+        <strong>ℹ️ Atenção</strong>
+
+        <br><br>
+
+        13º, férias e FGTS são apresentados
+        separadamente do salário líquido.
+
+        <br><br>
+
+        O FGTS não é descontado do salário
+        do trabalhador. Ele é um depósito
+        realizado pelo empregador.
+
+        <br><br>
+
+        Os valores são estimativas e podem
+        variar conforme o contrato, legislação,
+        convenção coletiva e situação individual.
+
+    </div>
+
+</section>
+
+
+<!-- =================================
+     HISTÓRICO
+================================= -->
+
+<section class="card full">
+
+    <div class="card-title">
+
+        <h2>
+            📚 Histórico
+        </h2>
+
+        <p>
+            Seus últimos cálculos ficam salvos
+            neste navegador.
+        </p>
+
+    </div>
+
+
+    <div id="historico">
+
+        <div class="empty">
+            Nenhum cálculo salvo ainda.
+        </div>
+
+    </div>
+
+
+    <button
+        class="action"
+        onclick="apagarHistorico()"
+        style="width:100%;margin-top:10px;"
+    >
+        🗑️ Apagar histórico
+    </button>
+
+</section>
+
+
+<div class="footer">
+
+    SalárioPro • Calculadora salarial
+
+</div>
+
+
+</div>
+
+
+<script>
+
+/* =========================================
+   ELEMENTOS
+========================================= */
+
+const $ = id =>
+    document.getElementById(id);
+
+
+/* =========================================
+   FORMATAÇÃO
+========================================= */
+
+function dinheiro(valor){
+
+    return new Intl.NumberFormat(
+        "pt-BR",
+        {
+            style:"currency",
+            currency:"BRL"
+        }
+    ).format(valor);
+
+}
+
+
+/* =========================================
+   INSS 2026
+========================================= */
+
+function calcularINSS(valor){
+
+    const teto = 8475.55;
+
+    const base =
+        Math.min(
+            Math.max(valor,0),
+            teto
+        );
+
+    let total = 0;
+
+
+    if(base <= 1621){
+
+        total =
+            base * 0.075;
+
+    }
+
+    else if(base <= 2902.84){
+
+        total =
+            1621 * 0.075
+            +
+            (base - 1621) * 0.09;
+
+    }
+
+    else if(base <= 4354.27){
+
+        total =
+            1621 * 0.075
+            +
+            (2902.84 - 1621) * 0.09
+            +
+            (base - 2902.84) * 0.12;
+
+    }
+
+    else{
+
+        total =
+            1621 * 0.075
+            +
+            (2902.84 - 1621) * 0.09
+            +
+            (4354.27 - 2902.84) * 0.12
+            +
+            (base - 4354.27) * 0.14;
+
+    }
+
+
+    return total;
+
+}
+
+
+/* =========================================
+   IRRF
+========================================= */
+
+function calcularIRRF(
+    rendimento,
+    inss,
+    dependentes
+){
+
+    const deducaoDependentes =
+        dependentes * 189.59;
+
+    const deducaoLegal =
+        inss +
+        deducaoDependentes;
+
+    const simplificado =
+        607.20;
+
+    const deducao =
+        Math.max(
+            deducaoLegal,
+            simplificado
+        );
+
+    const base =
+        Math.max(
+            0,
+            rendimento - deducao
+        );
+
+    let imposto = 0;
+
+
+    if(base <= 2428.80){
+
+        imposto = 0;
+
+    }
+
+    else if(base <= 2826.65){
+
+        imposto =
+            base * 0.075 - 182.16;
+
+    }
+
+    else if(base <= 3751.05){
+
+        imposto =
+            base * 0.15 - 394.16;
+
+    }
+
+    else if(base <= 4664.68){
+
+        imposto =
+            base * 0.225 - 675.49;
+
+    }
+
+    else{
+
+        imposto =
+            base * 0.275 - 908.73;
+
+    }
+
+
+    imposto =
+        Math.max(0, imposto);
+
+
+    let reducao = 0;
+
+
+    if(rendimento <= 5000){
+
+        reducao =
+            Math.min(
+                imposto,
+                312.89
+            );
+
+    }
+
+    else if(rendimento <= 7350){
+
+        reducao =
+            978.62 -
+            (
+                0.133145 *
+                rendimento
+            );
+
+        reducao =
+            Math.max(
+                0,
+                Math.min(
+                    imposto,
+                    reducao
+                )
+            );
+
+    }
+
+
+    return Math.max(
+        0,
+        imposto - reducao
+    );
+
+}
+
+
+/* =========================================
+   CALCULAR SALÁRIO
+========================================= */
+
+function calcularSalario(){
+
+    const bruto =
+        parseFloat($("salario").value) || 0;
+
+    const jornada =
+        parseFloat($("jornada").value) || 220;
+
+    const horasExtras =
+        parseFloat($("horasExtras").value) || 0;
+
+    const percentualExtra =
+        parseFloat($("percentualExtra").value) || 50;
+
+    const horasNoturnas =
+        parseFloat($("horasNoturnas").value) || 0;
+
+    const percentualNoturno =
+        parseFloat($("percentualNoturno").value) || 20;
+
+    const grau =
+        parseFloat($("insalubridade").value) || 0;
+
+    const baseInsalubridade =
+        parseFloat(
+            $("baseInsalubridade").value
+        ) || 0;
+
+    const dependentes =
+        parseInt($("dependentes").value) || 0;
+
+    const outros =
+        parseFloat($("outros").value) || 0;
+
+
+    if(bruto <= 0){
+
+        alert(
+            "Digite um salário bruto válido."
+        );
+
+        return;
+
+    }
+
+
+    /* HORA NORMAL */
+
+    const valorHora =
+        bruto / jornada;
+
+
+    /* HORAS EXTRAS */
+
+    const valorHoraExtra =
+        valorHora *
+        (
+            1 +
+            percentualExtra / 100
+        );
+
+    const totalExtras =
+        valorHoraExtra *
+        horasExtras;
+
+
+    /* NOTURNO */
+
+    const adicionalNoturno =
+        valorHora *
+        (
+            percentualNoturno / 100
+        ) *
+        horasNoturnas;
+
+
+    /* INSALUBRIDADE */
+
+    const totalInsalubridade =
+        baseInsalubridade *
+        (
+            grau / 100
+        );
+
+
+    /* REMUNERAÇÃO */
+
+    const remuneracao =
+        bruto
+        +
+        totalExtras
+        +
+        adicionalNoturno
+        +
+        totalInsalubridade;
+
+
+    /* INSS */
+
+    const inss =
+        calcularINSS(remuneracao);
+
+
+    /* IRRF */
+
+    const irrf =
+        calcularIRRF(
+            remuneracao,
+            inss,
+            dependentes
+        );
+
+
+    /* DESCONTOS */
+
+    const descontos =
+        inss +
+        irrf +
+        outros;
+
+
+    /* LÍQUIDO */
+
+    const liquido =
+        Math.max(
+            0,
+            remuneracao -
+            descontos
+        );
+
+
+    /* MOSTRAR */
+
+    $("liquido").textContent =
+        dinheiro(liquido);
+
+    $("resBruto").textContent =
+        dinheiro(bruto);
+
+    $("resExtras").textContent =
+        "+ " +
+        dinheiro(totalExtras);
+
+    $("resNoturno").textContent =
+        "+ " +
+        dinheiro(adicionalNoturno);
+
+    $("resInsalubridade").textContent =
+        "+ " +
+        dinheiro(totalInsalubridade);
+
+    $("resRemuneracao").textContent =
+        dinheiro(remuneracao);
+
+    $("resINSS").textContent =
+        "- " +
+        dinheiro(inss);
+
+    $("resIRRF").textContent =
+        "- " +
+        dinheiro(irrf);
+
+    $("resOutros").textContent =
+        "- " +
+        dinheiro(outros);
+
+    $("resDescontos").textContent =
+        dinheiro(descontos);
+
+
+    /* SALVAR HISTÓRICO */
+
+    salvarHistorico(
+        bruto,
+        liquido
+    );
+
+}
+
+
+/* =========================================
+   13º / FÉRIAS / FGTS
+========================================= */
+
+function calcularBeneficios(){
+
+    const bruto =
+        parseFloat($("salario").value) || 0;
+
+    const meses =
+        parseInt(
+            $("mesesTrabalhados").value
+        ) || 0;
+
+    const mesesFerias =
+        parseInt(
+            $("mesesFerias").value
+        ) || 0;
+
+
+    if(bruto <= 0){
+
+        alert(
+            "Digite o salário bruto primeiro."
+        );
+
+        return;
+
+    }
+
+
+    /*
+       13º proporcional
+    */
+
+    const decimo =
+        bruto *
+        Math.min(meses,12) /
+        12;
+
+
+    /*
+       Férias proporcionais
+       + 1/3 constitucional
+    */
+
+    const feriasBase =
+        bruto *
+        Math.min(mesesFerias,12) /
+        12;
+
+    const ferias =
+        feriasBase +
+        (
+            feriasBase / 3
+        );
+
+
+    /*
+       FGTS mensal
+    */
+
+    const fgts =
+        bruto * 0.08;
+
+
+    $("decimo").textContent =
+        dinheiro(decimo);
+
+    $("ferias").textContent =
+        dinheiro(ferias);
+
+    $("fgts").textContent =
+        dinheiro(fgts);
+
+}
+
+
+/* =========================================
+   COPIAR
+========================================= */
+
+function copiarResultado(){
+
+    const texto = `
+
+SALÁRIOPRO
+
+Salário bruto:
+${$("resBruto").textContent}
+
+Horas extras:
+${$("resExtras").textContent}
+
+Adicional noturno:
+${$("resNoturno").textContent}
+
+Insalubridade:
+${$("resInsalubridade").textContent}
+
+Remuneração bruta:
+${$("resRemuneracao").textContent}
+
+INSS:
+${$("resINSS").textContent}
+
+IRRF:
+${$("resIRRF").textContent}
+
+Outros descontos:
+${$("resOutros").textContent}
+
+SALÁRIO LÍQUIDO:
+${$("liquido").textContent}
+
+13º:
+${$("decimo").textContent}
+
+Férias + 1/3:
+${$("ferias").textContent}
+
+FGTS mensal:
+${$("fgts").textContent}
+
+`.trim();
+
+
+    navigator.clipboard.writeText(texto)
+        .then(() => {
+
+            alert(
+                "Resultado copiado!"
+            );
+
+        })
+        .catch(() => {
+
+            alert(
+                "Não foi possível copiar."
+            );
+
+        });
+
+}
+
+
+/* =========================================
+   NOVO CÁLCULO
+========================================= */
+
+function novoCalculo(){
+
+    $("salario").value = "";
+
+    $("jornada").value = "220";
+
+    $("dependentes").value = "0";
+
+    $("horasExtras").value = "0";
+
+    $("percentualExtra").value = "50";
+
+    $("horasNoturnas").value = "0";
+
+    $("percentualNoturno").value = "20";
+
+    $("insalubridade").value = "0";
+
+    $("baseInsalubridade").value = "1621";
+
+    $("outros").value = "0";
+
+    $("mesesTrabalhados").value = "12";
+
+    $("mesesFerias").value = "12";
+
+
+    $("liquido").textContent =
+        "R$ 0,00";
+
+    $("resBruto").textContent =
+        "R$ 0,00";
+
+    $("resExtras").textContent =
+        "+ R$ 0,00";
+
+    $("resNoturno").textContent =
+        "+ R$ 0,00";
+
+    $("resInsalubridade").textContent =
+        "+ R$ 0,00";
+
+    $("resRemuneracao").textContent =
+        "R$ 0,00";
+
+    $("resINSS").textContent =
+        "- R$ 0,00";
+
+    $("resIRRF").textContent =
+        "- R$ 0,00";
+
+    $("resOutros").textContent =
+        "- R$ 0,00";
+
+    $("resDescontos").textContent =
+        "R$ 0,00";
+
+    $("decimo").textContent =
+        "R$ 0,00";
+
+    $("ferias").textContent =
+        "R$ 0,00";
+
+    $("fgts").textContent =
+        "R$ 0,00";
+
+}
+
+
+/* =========================================
+   HISTÓRICO
+========================================= */
+
+function pegarHistorico(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                "salariopro_historico"
+            )
+        ) || [];
+
+    }catch{
+
+        return [];
+
+    }
+
+}
+
+
+function salvarHistorico(
+    bruto,
+    liquido
+){
+
+    const historico =
+        pegarHistorico();
+
+
+    historico.unshift({
+
+        data:
+            new Date().toLocaleString(
+                "pt-BR"
+            ),
+
+        bruto:bruto,
+
+        liquido:liquido
+
+    });
+
+
+    /*
+       Mantém somente os
+       10 últimos cálculos.
+    */
+
+    const limite =
+        historico.slice(
+            0,
+            10
+        );
+
+
+    localStorage.setItem(
+        "salariopro_historico",
+        JSON.stringify(limite)
+    );
+
+
+    mostrarHistorico();
+
+}
+
+
+function mostrarHistorico(){
+
+    const lista =
+        pegarHistorico();
+
+    const area =
+        $("historico");
+
+
+    if(lista.length === 0){
+
+        area.innerHTML =
+            `
+            <div class="empty">
+                Nenhum cálculo salvo ainda.
+            </div>
+            `;
+
+        return;
+
+    }
+
+
+    area.innerHTML =
+        lista.map(
+            (item,index) => `
+
+            <div class="history-item">
+
+                <div>
+
+                    <strong>
+                        ${dinheiro(item.bruto)}
+                    </strong>
+
+                    <br>
+
+                    <small>
+                        ${item.data}
+                    </small>
+
+                </div>
+
+                <div>
+
+                    <strong
+                        style="color:#34d399;"
+                    >
+                        ${dinheiro(item.liquido)}
+                    </strong>
+
+                    <br>
+
+                    <small>
+                        líquido
+                    </small>
+
+                </div>
+
+                <button
+                    class="delete-history"
+                    onclick="removerHistorico(${index})"
+                >
+                    ×
+                </button>
+
+            </div>
+
+            `
+        )
+        .join("");
+
+}
+
+
+function removerHistorico(index){
+
+    const historico =
+        pegarHistorico();
+
+    historico.splice(
+        index,
+        1
+    );
+
+    localStorage.setItem(
+        "salariopro_historico",
+        JSON.stringify(historico)
+    );
+
+    mostrarHistorico();
+
+}
+
+
+function apagarHistorico(){
+
+    if(
+        !confirm(
+            "Apagar todo o histórico?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    localStorage.removeItem(
+        "salariopro_historico"
+    );
+
+    mostrarHistorico();
+
+}
+
+
+/* =========================================
+   TEMA
+========================================= */
+
+const themeButton =
+    $("themeButton");
+
+
+themeButton.addEventListener(
+    "click",
+    () => {
+
+        document.body.classList.toggle(
+            "light"
+        );
+
+
+        const light =
+            document.body.classList.contains(
+                "light"
+            );
+
+
+        themeButton.textContent =
+            light ? "🌙" : "☀️";
+
+
+        localStorage.setItem(
+            "salariopro_theme",
+            light
+                ? "light"
+                : "dark"
+        );
+
+    }
+);
+
+
+/* =========================================
+   CARREGAR TEMA
+========================================= */
+
+if(
+    localStorage.getItem(
+        "salariopro_theme"
+    ) === "light"
+){
+
+    document.body.classList.add(
+        "light"
+    );
+
+    themeButton.textContent =
+        "🌙";
+
+}
+
+
+/* =========================================
+   ENTER
+========================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(
+            event.key === "Enter"
+        ){
+
+            calcularSalario();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   INICIAR HISTÓRICO
+========================================= */
+
+mostrarHistorico();
+
+</script>
+
+</body>
+</html>
+</body>
+<!-- =====================================
+     DASHBOARD PROFISSIONAL
+===================================== -->
+
+<style>
+
+.dashboard-pro{
+    margin-bottom:20px;
+}
+
+.dashboard-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:15px;
+}
+
+.dashboard-title h2{
+    font-size:18px;
+}
+
+.dashboard-title p{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:5px;
+}
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:
+        repeat(4,1fr);
+    gap:12px;
+}
+
+.dashboard-card{
+    padding:18px;
+    border-radius:18px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    box-shadow:
+        0 10px 30px var(--shadow);
+
+    transition:.25s;
+}
+
+.dashboard-card:hover{
+    transform:translateY(-3px);
+}
+
+.dashboard-icon{
+    width:38px;
+    height:38px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:12px;
+
+    background:var(--card2);
+
+    font-size:18px;
+}
+
+.dashboard-label{
+    margin-top:13px;
+
+    color:var(--muted);
+
+    font-size:10px;
+}
+
+.dashboard-value{
+    margin-top:5px;
+
+    font-size:19px;
+    font-weight:bold;
+}
+
+.dashboard-green{
+    color:#34d399;
+}
+
+.dashboard-blue{
+    color:#60a5fa;
+}
+
+.dashboard-purple{
+    color:#a78bfa;
+}
+
+.dashboard-yellow{
+    color:#fbbf24;
+}
+
+.quick-actions{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:10px;
+
+    margin-top:15px;
+}
+
+.quick-button{
+    height:45px;
+
+    border:1px solid var(--border);
+
+    border-radius:13px;
+
+    background:var(--card);
+
+    color:var(--text);
+
+    cursor:pointer;
+
+    font-size:11px;
+
+    transition:.2s;
+}
+
+.quick-button:hover{
+    background:var(--card2);
+    transform:translateY(-2px);
+}
+
+@media(max-width:800px){
+
+    .dashboard-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:500px){
+
+    .dashboard-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .quick-actions{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+
+
+<div class="dashboard-pro">
+
+    <div class="dashboard-title">
+
+        <div>
+
+            <h2>
+                📊 Visão geral
+            </h2>
+
+            <p>
+                Resumo do seu último cálculo
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="dashboard-grid">
+
+
+        <div class="dashboard-card">
+
+            <div class="dashboard-icon">
+                💰
+            </div>
+
+            <div class="dashboard-label">
+                SALÁRIO LÍQUIDO
+            </div>
+
+            <div
+                id="dashLiquido"
+                class="dashboard-value dashboard-green"
+            >
+                R$ 0,00
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+            <div class="dashboard-icon">
+                📈
+            </div>
+
+            <div class="dashboard-label">
+                SALÁRIO BRUTO
+            </div>
+
+            <div
+                id="dashBruto"
+                class="dashboard-value dashboard-blue"
+            >
+                R$ 0,00
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+            <div class="dashboard-icon">
+                🏦
+            </div>
+
+            <div class="dashboard-label">
+                FGTS MENSAL
+            </div>
+
+            <div
+                id="dashFgts"
+                class="dashboard-value dashboard-purple"
+            >
+                R$ 0,00
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+            <div class="dashboard-icon">
+                🎁
+            </div>
+
+            <div class="dashboard-label">
+                13º ESTIMADO
+            </div>
+
+            <div
+                id="dashDecimo"
+                class="dashboard-value dashboard-yellow"
+            >
+                R$ 0,00
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="quick-actions">
+
+        <button
+            class="quick-button"
+            onclick="calcularSalario()"
+        >
+            🧮 Calcular salário
+        </button>
+
+
+        <button
+            class="quick-button"
+            onclick="calcularBeneficios()"
+        >
+            🎁 Calcular benefícios
+        </button>
+
+
+        <button
+            class="quick-button"
+            onclick="gerarRelatorio()"
+        >
+            📄 Gerar relatório
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================
+   ATUALIZAR DASHBOARD
+===================================== */
+
+function atualizarDashboard(){
+
+    const liquido =
+        document
+        .getElementById("liquido")
+        ?.textContent
+        || "R$ 0,00";
+
+    const bruto =
+        document
+        .getElementById("resBruto")
+        ?.textContent
+        || "R$ 0,00";
+
+    const fgts =
+        document
+        .getElementById("fgts")
+        ?.textContent
+        || "R$ 0,00";
+
+    const decimo =
+        document
+        .getElementById("decimo")
+        ?.textContent
+        || "R$ 0,00";
+
+
+    document
+    .getElementById("dashLiquido")
+    .textContent = liquido;
+
+
+    document
+    .getElementById("dashBruto")
+    .textContent = bruto;
+
+
+    document
+    .getElementById("dashFgts")
+    .textContent = fgts;
+
+
+    document
+    .getElementById("dashDecimo")
+    .textContent = decimo;
+
+}
+
+
+/* =====================================
+   OBSERVAR ALTERAÇÕES
+===================================== */
+
+const observer =
+    new MutationObserver(
+        atualizarDashboard
+    );
+
+
+const elementos =
+    [
+        "liquido",
+        "resBruto",
+        "fgts",
+        "decimo"
+    ];
+
+
+elementos.forEach(id => {
+
+    const elemento =
+        document.getElementById(id);
+
+    if(elemento){
+
+        observer.observe(
+            elemento,
+            {
+                childList:true,
+                subtree:true
+            }
+        );
+
+    }
+
+});
+
+
+/* =====================================
+   RELATÓRIO
+===================================== */
+
+function gerarRelatorio(){
+
+    const liquido =
+        document
+        .getElementById("liquido")
+        .textContent;
+
+    const bruto =
+        document
+        .getElementById("resBruto")
+        .textContent;
+
+    const extras =
+        document
+        .getElementById("resExtras")
+        .textContent;
+
+    const noturno =
+        document
+        .getElementById("resNoturno")
+        .textContent;
+
+    const insalubridade =
+        document
+        .getElementById("resInsalubridade")
+        .textContent;
+
+    const inss =
+        document
+        .getElementById("resINSS")
+        .textContent;
+
+    const irrf =
+        document
+        .getElementById("resIRRF")
+        .textContent;
+
+    const outros =
+        document
+        .getElementById("resOutros")
+        .textContent;
+
+    const decimo =
+        document
+        .getElementById("decimo")
+        .textContent;
+
+    const ferias =
+        document
+        .getElementById("ferias")
+        .textContent;
+
+    const fgts =
+        document
+        .getElementById("fgts")
+        .textContent;
+
+
+    const janela =
+        window.open(
+            "",
+            "_blank"
+        );
+
+
+    janela.document.write(`
+
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>
+Relatório SalárioPro
+</title>
+
+<style>
+
+body{
+    font-family:Arial,sans-serif;
+    padding:40px;
+    color:#172033;
+    max-width:800px;
+    margin:auto;
+}
+
+h1{
+    color:#2563eb;
+    margin-bottom:5px;
+}
+
+.data{
+    color:#64748b;
+    font-size:12px;
+    margin-bottom:30px;
+}
+
+.card{
+    border:1px solid #e2e8f0;
+    border-radius:14px;
+    padding:18px;
+    margin-bottom:15px;
+}
+
+.row{
+    display:flex;
+    justify-content:space-between;
+    padding:10px 0;
+    border-bottom:1px solid #eef2f7;
+}
+
+.row:last-child{
+    border-bottom:0;
+}
+
+.total{
+    color:#059669;
+    font-size:22px;
+    font-weight:bold;
+}
+
+h2{
+    font-size:16px;
+    margin-top:0;
+}
+
+.footer{
+    margin-top:30px;
+    color:#64748b;
+    font-size:10px;
+    text-align:center;
+}
+
+button{
+    padding:12px 20px;
+    border:0;
+    border-radius:8px;
+    background:#2563eb;
+    color:white;
+    cursor:pointer;
+}
+
+@media print{
+
+    button{
+        display:none;
+    }
+
+    body{
+        padding:0;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<h1>
+💰 SalárioPro
+</h1>
+
+<div class="data">
+Relatório gerado em
+${new Date().toLocaleString("pt-BR")}
+</div>
+
+
+<div class="card">
+
+<h2>
+Resumo salarial
+</h2>
+
+
+<div class="row">
+
+<span>
+Salário bruto
+</span>
+
+<strong>
+${bruto}
+</strong>
+
+</div>
+
+
+<div class="row">
+
+<span>
+Horas extras
+</span>
+
+<strong>
+${extras}
+</strong>
+
+</div>
+
+
+<div class="row">
+
+<span>
+Adicional noturno
+</span>
+
+<strong>
+${noturno}
+</strong>
+
+</div>
+
+
+<div class="row">
+
+<span>
+Insalubridade
+</span>
+
+<strong>
+${insalubridade}
+</strong>
+
+</div>
+
+
+<div class="row">
+
+<span>
+INSS
+</span>
+
+<strong>
+${inss}
+</strong>
+
+</div>
+
+
+<div class="row">
+
+<span>
+IRRF
+</span>
+
+<strong>
+${irrf}
+</strong>
+
+</div>
+
+
+<div class="row">
+
+<span>
+Outros descontos
+</span>
+
+<strong>
+${outros}
+</strong>
+
+</div>
+
+
+<div class="row total">
+
+<span>
+Salário líquido
+</span>
+
+<strong>
+${liquido}
+</strong>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Benefícios e verbas
+</h2>
+
+
+<div class="row">
+
+<span>
+13º salário
+</span>
+
+<strong>
+${decimo}
+</strong>
+
+</div>
+
+
+<div class="row">
+
+<span>
+Férias + 1/3
+</span>
+
+<strong>
+${ferias}
+</strong>
+
+</div>
+
+
+<div class="row">
+
+<span>
+FGTS mensal
+</span>
+
+<strong>
+${fgts}
+</strong>
+
+</div>
+
+</div>
+
+
+<button
+onclick="window.print()"
+>
+🖨️ Imprimir / Salvar PDF
+</button>
+
+
+<div class="footer">
+
+SalárioPro — Calculadora salarial
+
+</div>
+
+
+</body>
+
+</html>
+
+`);
+
+
+    janela.document.close();
+
+}
+
+
+/* =====================================
+   ATUALIZAÇÃO INICIAL
+===================================== */
+
+setTimeout(
+    atualizarDashboard,
+    100
+);
+
+</script>
